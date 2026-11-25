@@ -5,13 +5,9 @@ A help desk ticket system in C++, built on my own queue and stack classes
 
 ## The problem
 
-A university IT help desk receives requests all day: password resets, broken
-printers, Wi-Fi problems. Tickets must be served in **arrival order**, agents
-must be able to **undo** their last action, and the manager wants to
-**search**, **cancel** and **print** tickets at any time.
-
-- Serving in arrival order is **first in, first out**, so the waiting line is a **queue**.
-- Undoing the most recent action first is **last in, first out**, so the undo history is a **stack**.
+A university IT help desk receives requests all day: password resets, broken printers, Wi-Fi problems.
+Tickets must be served in arrival order, agents must be able to undo their last action, and the manager
+wants to search, cancel and print tickets at any time.
 
 ## Project layout
 
@@ -19,11 +15,11 @@ must be able to **undo** their last action, and the manager wants to
 helpdesk-queue-cpp/
 ├── src/
 │   ├── Ticket.h        one ticket: id, name, category, minutes
-│   ├── TicketQueue.h   circular-array queue of tickets
+│   ├── TicketQueue.h   circular queue of tickets
 │   ├── ActionStack.h   array stack of actions (for undo)
 │   ├── HelpDesk.h      every command, using the queue and the stack
 │   ├── main.cpp        command loop (reads what you type)
-│   └── tests.cpp       unit tests for milestones M1–M3
+│   └── tests.cpp       unit tests
 ├── data/
 │   └── day1.csv        a sample day of 20 tickets
 └── README.md
@@ -34,8 +30,8 @@ helpdesk-queue-cpp/
 | Class | What it is | Main operations |
 |---|---|---|
 | `Ticket` | A plain record: `id`, `name`, `category`, `minutes` | none (data only) |
-| `TicketQueue` | **Circular array** queue, capacity 100 | `enqueue`, `dequeue`, `peek`, `print`, `searchId`, `searchName`, `removeById`, `insertAt` |
-| `ActionStack` | **Array** stack, capacity 100 | `push`, `pop`, `peek`, `print`, `search` |
+| `TicketQueue` | **Circular queue**, capacity 100 | `enqueue`, `dequeue`, `peek`, `print`, `searchId`, `searchName`, `removeById`, `insertAt` |
+| `ActionStack` | **Stack**, capacity 100 | `push`, `pop`, `peek`, `print`, `search` |
 | `HelpDesk` | Holds one `TicketQueue` (the line) and one `ActionStack` (undo history) | one method per command |
 
 ### Which operation uses the queue and which uses the stack

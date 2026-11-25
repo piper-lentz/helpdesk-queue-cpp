@@ -56,7 +56,7 @@ wrap around to cell 0 and no space is wasted. A `count` tells an empty queue
 (`count == 0`) from a full one (`count == CAPACITY`). This is the
 `CircularQueue` from lecture section 13.1, storing `Ticket` objects instead of `int`s.
 
-### How cancel removes from the middle (F5)
+### How cancel removes from the middle
 
 A queue can only remove at the front, so `removeById` uses the rotation
 method from lecture section 12: dequeue every ticket once and enqueue it
@@ -72,7 +72,7 @@ turn 4: take 4, put back  ->  5 1 2 4
 turn 5: take 5, put back  ->  1 2 4 5     (order unchanged)
 ```
 
-### How undo works (F6)
+### How undo works
 
 Each action on the stack stores the ticket and, for a cancel, its old position.
 Undo pops the top action and does the opposite:
@@ -86,7 +86,7 @@ Undo pops the top action and does the opposite:
 `insertAt` uses the same rotation as cancel: while rotating, the ticket is
 enqueued just before the ticket that should come after it.
 
-### Simulation (M4)
+### Simulation
 
 `simulate <agents>` serves the whole waiting line with 1 or more agents.
 Each time, the ticket at the front goes to the agent who becomes free first.
@@ -192,17 +192,17 @@ Help Desk Ticket System (type 'help' for commands)
 > quit
 ```
 
-## Testing (milestones M1–M3)
+## Testing
 
 `./tests` checks:
 
-- **M1:** `TicketQueue` and `ActionStack` when empty (underflow), with one element, and when full (overflow), plus wrap-around in the circular array.
-- **M2:** cancel at the front, middle and rear, and the other tickets keep their order.
-- **M3:** undo of each command, and **three undos in a row restore the earlier queue exactly**. Also checks that `save` then `load` gives back the same queue.
+- **Milestone 1:** `TicketQueue` and `ActionStack` when empty (underflow), with one element, and when full (overflow), plus wrap-around in the circular array.
+- **Milestone 2:** cancel at the front, middle and rear, and the other tickets keep their order.
+- **Milestone 3:** undo of each command, and **three undos in a row restore the earlier queue exactly**. Also checks that `save` then `load` gives back the same queue.
 
 All 35 checks pass.
 
-## Waiting-time results (M4)
+## Waiting-time results (Milestone 4)
 
 Simulation of `data/day1.csv` (20 tickets, 241 minutes of work in total),
 all tickets waiting at opening:

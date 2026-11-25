@@ -41,12 +41,12 @@ helpdesk-queue-cpp/
 | `add` | `enqueue` the new ticket at the rear | push an ADD action |
 | `serve` | `dequeue` the ticket at the front | push a SERVE action |
 | `print` | walk front → rear, add up minutes | – |
-| `search id` / `search name` | walk front → rear; the wait is the sum of minutes *in front of* the ticket | – |
-| `cancel` | `removeById`: rotate once around the queue, dropping that ticket | push a CANCEL action (with its old position) |
-| `undo` | reverse the action (see below) | **pop** the last action |
+| `search id` / `search name` | walk front → rear; the wait is the sum of minutes in front of the ticket | – |
+| `cancel` | `removeById`: rotate once around the queue, dropping that ticket | push a CANCEL action |
+| `undo` | reverse the action | **pop** the last action |
 | `load` | clear, then `enqueue` each line of the file | cleared (a load can't be undone) |
 | `save` | walk front → rear and write each ticket | – |
-| `simulate` | `dequeue` from a **copy** of the queue | – |
+| `simulate` | `dequeue` from a copy of the queue | – |
 
 ### How the circular queue works
 

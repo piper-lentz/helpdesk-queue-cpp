@@ -51,7 +51,7 @@ helpdesk-queue-cpp/
 
 ## Build and run
 
-Needs a C++17 compiler (g++ shown; the same flags as the lecture notes).
+Needs a C++17 compiler.
 
 ```bash
 # build the program
@@ -91,8 +91,6 @@ id,name,category,minutes
 ```
 
 ## Sample session
-
-(Shortened: `...` marks rows left out of the long `print` listings.)
 
 ```
 Help Desk Ticket System (type 'help' for commands)
@@ -149,9 +147,9 @@ Help Desk Ticket System (type 'help' for commands)
 
 `./tests` checks:
 
-- **Milestone 1:** `TicketQueue` and `ActionStack` when empty (underflow), with one element, and when full (overflow), plus wrap-around in the circular array.
+- **Milestone 1:** `TicketQueue` and `ActionStack` when empty, with one element, and when full, plus wrap-around in the circular array.
 - **Milestone 2:** cancel at the front, middle and rear, and the other tickets keep their order.
-- **Milestone 3:** undo of each command, and **three undos in a row restore the earlier queue exactly**. Also checks that `save` then `load` gives back the same queue.
+- **Milestone 3:** undo of each command, and three undos in a row restore the earlier queue exactly. Also checks that `save` then `load` gives back the same queue.
 
 All 35 checks pass.
 
@@ -164,8 +162,7 @@ Each time, the ticket at the front goes to the agent who becomes free first.
 A ticket's wait is the minute its agent starts on it.
 
 **Assumption:** every ticket is already waiting when the desk opens
-(minute 0). This is the same assumption the "estimated wait" in `search` uses.
-The simulation works on a copy, so the real queue is not changed.
+(minute 0). The simulation works on a copy, so the real queue is not changed.
 
 Simulation of `data/day1.csv` (20 tickets, 241 minutes of work in total),
 all tickets waiting at opening:
@@ -186,11 +183,3 @@ To reproduce:
 A second agent cuts the average wait by more than half (115.5 → 53.5 minutes)
 and the day finishes in about half the time.
 
-## Complexity
-
-| Operation | Cost |
-|---|---|
-| add, serve (one enqueue/dequeue + one push) | O(1) |
-| print, search, cancel | O(n) |
-| undo (one pop + a rotation of the queue) | O(n) |
-| simulate | O(n × agents) |

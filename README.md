@@ -48,53 +48,6 @@ helpdesk-queue-cpp/
 | `save` | walk front → rear and write each ticket | – |
 | `simulate` | `dequeue` from a copy of the queue | – |
 
-### How the circular queue works
-
-`front` is the index of the first ticket, `rear` the index of the last one.
-Both move forward with `% CAPACITY`, so after the last cell of the array they
-wrap around to cell 0 and no space is wasted. A `count` tells an empty queue
-(`count == 0`) from a full one (`count == CAPACITY`). This is the
-`CircularQueue` from lecture section 13.1, storing `Ticket` objects instead of `int`s.
-
-### How cancel removes from the middle
-
-A queue can only remove at the front, so `removeById` uses the rotation
-method from lecture section 12: dequeue every ticket once and enqueue it
-again, **except** the one being cancelled. After `count` turns the queue has
-gone all the way round, so the other tickets are back in their original order.
-
-```
-cancel 3 on   1 2 3 4 5
-turn 1: take 1, put back  ->  2 3 4 5 1
-turn 2: take 2, put back  ->  3 4 5 1 2
-turn 3: take 3, DROP it   ->  4 5 1 2
-turn 4: take 4, put back  ->  5 1 2 4
-turn 5: take 5, put back  ->  1 2 4 5     (order unchanged)
-```
-
-### How undo works
-
-Each action on the stack stores the ticket and, for a cancel, its old position.
-Undo pops the top action and does the opposite:
-
-| Action popped | What undo does |
-|---|---|
-| ADD | remove that ticket (it is at the rear) and give its id back |
-| SERVE | put the ticket back at position 1 (the front) |
-| CANCEL | put the ticket back at its old position with `insertAt` |
-
-`insertAt` uses the same rotation as cancel: while rotating, the ticket is
-enqueued just before the ticket that should come after it.
-
-### Simulation
-
-`simulate <agents>` serves the whole waiting line with 1 or more agents.
-Each time, the ticket at the front goes to the agent who becomes free first.
-A ticket's wait is the minute its agent starts on it.
-
-**Assumption:** every ticket is already waiting when the desk opens
-(minute 0). This is the same assumption the "estimated wait" in `search` uses.
-The simulation works on a copy, so the real queue is not changed.
 
 ## Build and run
 
@@ -203,6 +156,16 @@ Help Desk Ticket System (type 'help' for commands)
 All 35 checks pass.
 
 ## Waiting-time results (Milestone 4)
+
+### Simulation
+
+`simulate <agents>` serves the whole waiting line with 1 or more agents.
+Each time, the ticket at the front goes to the agent who becomes free first.
+A ticket's wait is the minute its agent starts on it.
+
+**Assumption:** every ticket is already waiting when the desk opens
+(minute 0). This is the same assumption the "estimated wait" in `search` uses.
+The simulation works on a copy, so the real queue is not changed.
 
 Simulation of `data/day1.csv` (20 tickets, 241 minutes of work in total),
 all tickets waiting at opening:

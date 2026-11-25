@@ -143,7 +143,7 @@ Help Desk Ticket System (type 'help' for commands)
 > quit
 ```
 
-## Testing
+## Testing (Milestones 1-3)
 
 `./tests` checks:
 
